@@ -1,0 +1,315 @@
+body {
+    background-color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: #818181;
+    margin: 0;
+    padding: 0;
+}
+
+.media-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+figure,
+p,
+address {
+    margin: 0;
+}
+
+p {
+    line-height: 25px;
+}
+
+iframe {
+    border: 0;
+}
+
+a {
+    -webkit-transition: all 0.3s ease-out 0s;
+    -moz-transition: all 0.3s ease-out 0s;
+    -ms-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+}
+
+a,
+a:hover,
+a:focus,
+.btn:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    color: #252525;
+}
+
+main>section {
+    padding: 70px 0;
+}
+
+
+/**
+/*	Preloader
+/* ==========================================*/
+
+#preloader {
+    background-color: #fff;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+.sl-slide,
+.sl-slides-wrapper,
+.sl-slide-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.sl-slider-wrapper {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    position: relative;
+}
+
+.bg-img {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.bg-img-1 {
+    background-image: url("/dbms_app/public2/images/banner.jpg");
+}
+
+
+/*=================================================================
+	Home Slider
+==================================================================*/
+
+#home-slider {
+    position: relative;
+    padding: 0;
+}
+
+.sl-slider-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.sl-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+/* Slide wrapper and slides */
+
+.sl-slide,
+.sl-slides-wrapper,
+.sl-slide-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.sl-slide {
+    z-index: 1;
+}
+
+.slide-caption {
+    color: #fff;
+    display: table;
+    height: 100%;
+    left: 0;
+    min-height: 100%;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 11;
+}
+
+.slide-caption .caption-content {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.caption-content h2 {
+    color: #fff;
+    font-size: 52px;
+    font-weight: 400;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+.caption-content>span {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 45px;
+    text-transform: capitalize;
+}
+
+.caption-content p {
+    font-size: 29px;
+    margin-bottom: 65px;
+}
+
+
+/* The duplicate parts/slices */
+
+.sl-content-slice {
+    overflow: hidden;
+    position: absolute;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    background: #fff;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    opacity: 1;
+}
+
+
+/* Horizontal slice */
+
+.sl-slide-horizontal .sl-content-slice {
+    width: 100%;
+    height: 50%;
+    left: -200px;
+    -webkit-transform: translateY(0%) scale(1);
+    -moz-transform: translateY(0%) scale(1);
+    -o-transform: translateY(0%) scale(1);
+    -ms-transform: translateY(0%) scale(1);
+    transform: translateY(0%) scale(1);
+}
+
+.sl-slide-horizontal .sl-content-slice:first-child {
+    top: -200px;
+    padding: 200px 200px 0px 200px;
+}
+
+.sl-slide-horizontal .sl-content-slice:nth-child(2) {
+    top: 50%;
+    padding: 0px 200px 200px 200px;
+}
+
+
+/* Vertical slice */
+
+.sl-slide-vertical .sl-content-slice {
+    width: 50%;
+    height: 100%;
+    top: -200px;
+    -webkit-transform: translateX(0%) scale(1);
+    -moz-transform: translateX(0%) scale(1);
+    -o-transform: translateX(0%) scale(1);
+    -ms-transform: translateX(0%) scale(1);
+    transform: translateX(0%) scale(1);
+}
+
+
+/* Content wrapper */
+
+
+/*============================================================
+	Responsive Styles
+ ============================================================*/
+
+
+/*============================================================
+	For Small Desktop
+==============================================================*/
+
+@media (min-width: 980px) and (max-width: 1150px) {}
+
+
+/*============================================================
+	Tablet (Portrait) Design for a width of 768px
+==============================================================*/
+
+@media (min-width: 768px) and (max-width: 979px) {
+    /* home slider  */
+    .caption-content h2 {
+        font-size: 40px;
+    }
+    .caption-content p {
+        font-size: 25px;
+    }
+    .caption-content strong {
+        font-size: 45px;
+    }
+}
+
+
+/*============================================================
+	Mobile (Portrait) Design for a width of 320px
+==============================================================*/
+
+@media only screen and (max-width: 767px) {
+    body {
+        font-size: 14px;
+    }
+    /* slider */
+    .caption-content h2 {
+        font-size: 18px;
+    }
+    .caption-content>span {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    .caption-content p {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    .caption-content strong {
+        font-size: 22px;
+    }
+}
+
+
+/*============================================================
+	Mobile (Landscape) Design for a width of 480px
+==============================================================*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    /* home slider */
+    .caption-content h2 {
+        font-size: 35px;
+    }
+    .caption-content p {
+        font-size: 25px;
+    }
+    .caption-content strong {
+        font-size: 35px;
+    }
+}
