@@ -193,6 +193,9 @@ class Product
     {
         $db = DB::getInstance();
         $query = "INSERT INTO cart values('$email', $key, $amount)";
+        $res = $db->query($query);
+        if ($res) return true;
+        return false;
     }
 
     static function updateCart($email, $key)
@@ -230,9 +233,14 @@ class Product
         }
         $productCheck = substr($productCheck, 0, strlen($productCheck) - 7);
         $productCheck .= ');';
-        $result = $db->query($productCheck);
 
-        return array("totalPrice" => $totalPrice, "result" => $result);
+        $result = $db->query($productCheck);
+        $products = [];
+        while ($product = $result->fetchArray())
+            array_unshift($products, $product);
+
+
+        return array("totalPrice" => $totalPrice, "result" => $products);
     }
 
     static function getPay($email)
