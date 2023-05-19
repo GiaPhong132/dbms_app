@@ -52,9 +52,6 @@ require_once __DIR__ . '/../navbar.php';
                             </div>
                         </div>
                         <form action="index.php?page=main&controller=product&action=getPay" method="POST">
-
-
-
                             <?php
                             $totalPrice = 0;
                             $totalAmount = 0;

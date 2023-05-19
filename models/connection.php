@@ -6,7 +6,7 @@ class DB
     public static function getInstance()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new SQLite3("dbms_app.db");
+            self::$instance = new SQLite3("dbms_app.sqlite");
             if (!self::$instance) {
                 echo "Cannot connect to database!";
                 exit();

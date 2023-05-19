@@ -128,11 +128,12 @@ class Product
         return $req;
     }
 
-    static function delete($id)
+    static function deleteFromCart($email, $id)
     {
         $db = DB::getInstance();
-        $req = $db->query("DELETE FROM product WHERE id = $id");
-        return $req;
+        $query = "Delete from cart where email='$email' and product_id = $id";
+        $res = $db->query($query);
+        return $res;
     }
 
     static function update($id, $name, $newPrice, $oldPrice, $reviews)
@@ -198,9 +199,21 @@ class Product
     {
         $db = DB::getInstance();
         $query = "UPDATE  cart set amount= amount + 1 where email ='$email' and product_id = $key ";
-        $res = $db->query($query);
+        $res = $db->querySingle($query);
         if ($res) return true;
         return false;
+    }
+
+    static function getProduct($email)
+    {
+        $db = DB::getInstance();
+        $query = "select * from cart c join product p on c.product_id = p.id and email = '$email'";
+        $result = $db->query($query);
+        $products = [];
+        while ($product = $result->fetchArray()) {
+            array_unshift($products, $product);
+        }
+        return $products;
     }
 
     static function getProductPay($email)
