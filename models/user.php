@@ -64,7 +64,6 @@ class User
             WHERE email = '$email'
             ;";
         $result = $db->querySingle($query, true);
-
         $user = new User(
             $result['email'],
             $result['profile_photo'],
@@ -82,18 +81,11 @@ class User
     }
     static function insert($email, $profile_photo, $fname, $lname, $gender, $phone, $password)
     {
-        $password = password_hash($password, PASSWORD_DEFAULT);
         $db = DB::getInstance();
-
-
-        $req = $db->query(
-            "
-            INSERT INTO USER (email, profile_photo, fname, lname, gender,  phone, createAt, updateAt, password)
-            VALUES ('$email', '$profile_photo', '$fname', '$lname', $gender, '$phone', NOW(), NOW(), '$password')
-            ;"
-        );
-
-        return $req;
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $query = "INSERT INTO USER (email, profile_photo, fname, lname, gender,  phone, createAt, updateAt, password) VALUES ('$email', '$profile_photo', '$fname', '$lname', $gender, '$phone', date('now'), date('now'), '$password')";
+        $res = $db->query($query);
+        return $res;
     }
 
     static function delete($email, $createAt)
@@ -128,12 +120,12 @@ class User
     }
 
 
-
     static function validation($email, $password)
     {
         $db = DB::getInstance();
-        $req = $db->querySingle("SELECT * FROM user WHERE email = '$email'", true);
-        if (@password_verify($password, $req['password']))
+        $res = $db->querySingle("SELECT * FROM user WHERE email = '$email'", true);
+        $check = password_verify($password, $res['password']);
+        if ($check)
             return true;
         else
             return false;

@@ -42,9 +42,9 @@ class Product
     static function getAll()
     {
         $db = DB::getInstance();
-        $req = $db->query("SELECT * FROM product");
+        $res = $db->query("SELECT * FROM product");
         $products = [];
-        foreach ($req->fetch_all(MYSQLI_ASSOC) as $product) {
+        while ($product = $res->fetchArray()) {
             $products[] = new Product(
                 @$product['id'],
                 @$product['name'],
@@ -210,7 +210,8 @@ class Product
     static function getProduct($email)
     {
         $db = DB::getInstance();
-        $query = "select * from cart c join product p on c.product_id = p.id and email = '$email'";
+        // $query = "select * from cart c join product p on c.product_id = p.id and email = '$email'";
+        $query = "select * from (select * from cart where email='$email') c join product p on c.product_id = p.id";
         $result = $db->query($query);
         $products = [];
         while ($product = $result->fetchArray()) {
@@ -227,7 +228,8 @@ class Product
         foreach (explode('&', file_get_contents('php://input')) as $keyValuePair) {
             list($key, $value) = explode('=', $keyValuePair);
             $productCheck .= $value . ' or id=';
-            $query = "select * from cart join product p on p.id = cart.product_id and email ='$email' and id=$value";
+            // $query = "select * from cart join product p on p.id = cart.product_id and email ='$email' and id=$value";
+            $query = "select * from (select * from cart where email='$email') c join (select * from  ( select * from product where id=$value)) p on p.id = c.product_id";
             $result = $db->querySingle($query, true);
             $totalPrice += $result['amount'] * $result['newPrice'];
         }
@@ -239,7 +241,6 @@ class Product
         while ($product = $result->fetchArray())
             array_unshift($products, $product);
 
-
         return array("totalPrice" => $totalPrice, "result" => $products);
     }
 
@@ -250,7 +251,7 @@ class Product
             foreach (explode('&', file_get_contents('php://input')) as $keyValuePair) {
                 list($key, $value) = explode('=', $keyValuePair);
                 $query = "select amount from cart join product p on p.id = cart.product_id and email ='$email' and id=$value";
-                $result = $db->query($query);
+                $result = $db->querySingle($query, true);
                 $amount = $result['amount'];
                 $currentDate  = date('Y-m-d h:i:s');
                 $query = "insert into corder (email, product_id, amount, state, time) values ('$email', $value, $amount, 'Đang vận chuyển', '$currentDate');";

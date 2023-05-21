@@ -24,22 +24,26 @@ class RegisterController extends BaseController
     {
         $fname = $_POST['first_name'];
         $lname = $_POST['last_name'];
-        $age = $_POST['age'];
-        $gender = $_POST['gender'];
+        @$gender = $_POST['gender'];
         $phone = $_POST['phone_number'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $retype_password = $_POST['retype_password'];
 
-        if ($password != $retype_password) {
-            $err = "Mật khẩu được nhập lại không khớp";
-            $data = array('err' => $err);
-            $this->render('index', $data);
-        } else {
+        if (session_status() != PHP_SESSION_ACTIVE)
             session_start();
-            $_SESSION['guest'] = $email;
-            User::insert($email, 'public/images/user/default.png', $fname, $lname, $gender, $age, $phone, $password);
-            header('Location: index.php?page=main&controller=layouts&action=index');
+        if (isset($_SESSION["guest"]))
+            header('Location: index.php?page=main&controller=product&action=index');
+        else {
+            if ($password != $retype_password) {
+                $err = "Mật khẩu được nhập lại không khớp";
+                $data = array('err' => $err);
+                $this->render('index', $data);
+            } else {
+                // $_SESSION['guest'] = $email;
+                User::insert($email, 'public/images/user/default.png', $fname, $lname, $gender, $phone, $password);
+                // header('Location: index.php?page=main&controller=layouts&action=index');
+            }
         }
     }
 

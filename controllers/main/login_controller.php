@@ -20,7 +20,7 @@ class LoginController extends BaseController
 
             unset($_POST);
             $check = User::validation($username, $password);
-            if ($check == 1) {
+            if ($check == True) {
 
                 if ($username == "admin@gmail.com")
                     $_SESSION['user'] = $username;
@@ -29,9 +29,10 @@ class LoginController extends BaseController
 
                 if (isset($_SESSION['oldHeader'])) {
                     $oldHeader = 'Location: ' . $_SESSION['oldHeader'];
-                    header("$oldHeader");
+                    header($oldHeader);
+                } else {
+                    header('Location: index.php?page=main&controller=product&action=index');
                 }
-                header('Location: index.php?page=main&controller=product&action=index');
             } else {
                 $err = "Sai tài khoản hoặc mật khẩu";
                 $data = array('err' => $err);

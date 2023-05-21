@@ -61,27 +61,27 @@ class ProductController  extends BaseController
             session_start();
 
         if (!isset($_SESSION['guest'])) {
-            // session_start();
             $_SESSION['oldHeader'] = "index.php?page=main&controller=product&action=getDetail&productKey=$key";
             header('Location: index.php?page=main&controller=login&action=index');
+        } else {
+
+            $email = $_SESSION['guest'];
+            $key = $_GET['productKey'];
+
+            $result = Product::isHave($email, $key);
+            if ($result)
+                Product::updateCart($email, $key);
+            else
+                Product::insertCart($email, $key, 1);
+
+            $product = Product::get($key);
+            $message = "Sản phẩm đã được thêm vào Giỏ hàng";
+            $key = $_GET['productKey'];
+            $product = Product::get($key);
+            $shop  = Shop::get($product->shop_id);
+            $data = array('product' => $product, 'message' => $message, 'shop' => $shop);
+            $this->render('detail', $data);
         }
-
-        $email = $_SESSION['guest'];
-        $key = $_GET['productKey'];
-
-        $result = Product::isHave($email, $key);
-        if ($result)
-            Product::updateCart($email, $key);
-        else
-            Product::insertCart($email, $key, 1);
-
-        $product = Product::get($key);
-        $message = "Sản phẩm đã được thêm vào Giỏ hàng";
-        $key = $_GET['productKey'];
-        $product = Product::get($key);
-        $shop  = Shop::get($product->shop_id);
-        $data = array('product' => $product, 'message' => $message, 'shop' => $shop);
-        $this->render('detail', $data);
     }
 
     public function getPay()
@@ -104,11 +104,17 @@ class ProductController  extends BaseController
         if (session_status() != PHP_SESSION_ACTIVE)
             session_start();
         $product_id = $_GET['productKey'];
-        $result = Product::get($product_id);
-        $totalPrice =  $result->newPrice;
-        $signal = "buyNow";
-        $data = array('productCheck' => $result, 'totalPrice' => $totalPrice, 'signal' => $signal);
-        $this->render('payment', $data);
+
+        if (!isset($_SESSION['guest'])) {
+            $_SESSION['oldHeader'] = "index.php?page=main&controller=product&action=getDetail&productKey=$product_id";
+            header('Location: index.php?page=main&controller=login&action=index');
+        } else {
+            $result = Product::get($product_id);
+            $totalPrice =  $result->newPrice;
+            $signal = "buyNow";
+            $data = array('productCheck' => $result, 'totalPrice' => $totalPrice, 'signal' => $signal);
+            $this->render('payment', $data);
+        }
     }
 
     public function pay()

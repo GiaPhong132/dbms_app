@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/../navbar.php';
+if (!isset($_SESSION['guest']))
+    header('Location: http://localhost/dbms_app/index.php?page=main&controller=login&action=index');
 ?>
 
 <div class="app">

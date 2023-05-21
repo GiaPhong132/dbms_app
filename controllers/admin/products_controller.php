@@ -17,23 +17,23 @@ class ProductsController extends BaseController
         $this->render('index', $data);
     }
 
-    public function getAll()
-    {
-        $db = DB::getInstance();
-        $req = $db->query("SELECT * FROM product");
-        $data = [];
-        foreach ($req->fetch_all(MYSQLI_ASSOC) as $x) {
-            $data[] = new Admin(
-                $x['id'],
-                $x['price'],
-                $x['name'],
-                $x['description'],
-                $x['review'],
-                $x['img']
-            );
-        }
-        return $data;
-    }
+    // public function getAll()
+    // {
+    //     $db = DB::getInstance();
+    //     $req = $db->query("SELECT * FROM product");
+    //     $data = [];
+    //     foreach ($req->fetch_all(MYSQLI_ASSOC) as $x) {
+    //         $data[] = new Admin(
+    //             $x['id'],
+    //             $x['price'],
+    //             $x['name'],
+    //             $x['description'],
+    //             $x['review'],
+    //             $x['img']
+    //         );
+    //     }
+    //     return $data;
+    // }
     public function add()
     {
         $page_number = $_GET['pg'];
@@ -118,16 +118,16 @@ class ProductsController extends BaseController
         }
     }
 
-    public function delete()
-    {
-        $id = $_POST['id'];
-        $page_number = $_GET['pg'];
+    // public function delete()
+    // {
+    //     $id = $_POST['id'];
+    //     $page_number = $_GET['pg'];
 
-        $urlcurrent = Product::get((int)$id)->img;
-        unlink($urlcurrent);
-        Product::delete($id);
+    //     $urlcurrent = Product::get((int)$id)->img;
+    //     unlink($urlcurrent);
+    //     Product::delete($id);
 
-        $tmp = "Location: index.php?page=admin&controller=paginate&action=index&pg=$page_number";
-        header($tmp);
-    }
+    //     $tmp = "Location: index.php?page=admin&controller=paginate&action=index&pg=$page_number";
+    //     header($tmp);
+    // }
 }

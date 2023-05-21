@@ -93,9 +93,10 @@ if (isset($message)) {
                         if (@$signal == 'descending' || @$signal == "ascending") {
                             echo '
                                                 </form>
-                                                <div class="btn home-filter-sort" style="background-color:#fe6333">
+                                                <div class="btn home-filter-sort" style="background-color:white">
 
-                                                    <p class="home-filter-sort-btn" >Giá</p>
+
+                                                      <button  type="button" class="btn home-filter-btn" style="background-color:white">Giá</button>
 
                                                     <ul class="home-filter-sort-list">
 
@@ -106,7 +107,7 @@ if (isset($message)) {
                                                 </form>
                                                 <div class="btn home-filter-sort">
 
-                                                    <p class="home-filter-sort-btn" >Giá</p>
+                                                <button  type="button" class="btn home-filter-btn" style="background-color:white">Giá</button>
 
                                                     <ul class="home-filter-sort-list">
 
@@ -122,7 +123,7 @@ if (isset($message)) {
                                                                   </a>
                                                                   </li>
 
-                                                                <li style="background-color:#fe6333">
+                                                                <li style="background-color:#78bc5c">
                                                                 <a href="#" class="home-filter-sort-item-link">
                                                                    <button type="submit" name="ascending" class="home-filter-sort-item-link" style="background:none; border:none">TĂNG DẦN</button>
                                                                     <i class="fas fa-sort-amount-up-alt"></i>
@@ -131,7 +132,7 @@ if (isset($message)) {
                                         ';
                         } elseif (@$signal == "descending") {
                             echo '
-                            <li style="background-color:#fe6333">
+                            <li style="background-color:#78bc5c">
                                                                 <a href="#" class="home-filter-sort-item-link">
                                                                     <button type="submit" name="descending" class="home-filter-sort-item-link" style="background:none; border:none">GIẢM DẦN</button>
                                                                     <i class="fas fa-sort-amount-down-alt"></i>
